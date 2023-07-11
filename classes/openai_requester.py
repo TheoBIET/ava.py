@@ -1,21 +1,8 @@
 from utils.constants import *
+from classes.chat_bot_functions import ChatBotFunctions
 import openai
 import json
 import sys
-import subprocess
-
-def launch_a_game(name):
-    name = name.lower()
-    
-    path = {
-        'trackmania': 'E:\SteamLibrary\steamapps\common\Trackmania\Trackmania.exe',
-    }
-    
-    subprocess.Popen(path[name])
-    
-available_functions = {
-    'launch_a_game': launch_a_game,
-}
 
 class OpenAI:
     def __init__(self):
@@ -85,11 +72,12 @@ class OpenAI:
         
         if message.get("function_call"):
             function_name = message["function_call"]["name"]
+            available_functions = ChatBotFunctions.get_availables_functions()
             if function_name in available_functions:
                 function = available_functions[function_name]
                 args = json.loads(message["function_call"]["arguments"])
                 args_str = ", ".join([f"{k}='{v}'" for k, v in args.items()])
-                print(f'🤖 ChatBot call function: {function_name}({args_str})')
+                print(f"🤖 Calling function {function_name}({args_str})")
                 function(**args)
         
         return message['content']
