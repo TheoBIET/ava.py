@@ -1,0 +1,16 @@
+git+https://github.com/openai/whisper.git               # Whisper
+pyaudio                                                 # Whisper
+SpeechRecognition                                       # Whisper
+
+transformers                                            # Falcon
+einops                                                  # Falcon
+torch                                                   # Falcon
+xformers                                                # Falcon
+langchain                                               # Falcon
+accelerate                                              # Falcon
+bitsandbytes                                            # Falcon
+
+flask                                                   # REST API
+flask-cors                                              # REST API
+
+pyttsx3                                                 # System TTS
