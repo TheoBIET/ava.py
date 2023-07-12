@@ -10,4 +10,7 @@ def get_env(name, cast_as=str):
     if value is None:
         raise ValueError(f'Environment variable {name} is not set')
 
+    if cast_as == bool:
+        return value.lower() in ['true', '1', 'yes', 'y']
+
     return cast_as(value)

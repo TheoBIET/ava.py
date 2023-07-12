@@ -1,6 +1,8 @@
 """Class that regroups all the functions that the chatbot can execute."""
 import subprocess
 
+from app.utils.talk_wav import talk_wav
+
 class ChatBotFunctions:
     """Class that regroups all the functions that the chatbot can execute."""
     @staticmethod
@@ -26,4 +28,5 @@ class ChatBotFunctions:
         for game, data in path.items():
             if name == game or name in data['alias']:
                 with subprocess.Popen(data['path']) as _:
+                    talk_wav('i_launch_your_game')
                     break
