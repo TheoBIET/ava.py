@@ -6,6 +6,8 @@ from app.classes.voice_recorder import VoiceRecorder
 from app.classes.chatbot import ChatBot
 from app.classes.text_to_speech import TextToSpeech
 
+import fake
+
 class VoiceAssistant:
     """Class representing the voice assistant core."""
 
