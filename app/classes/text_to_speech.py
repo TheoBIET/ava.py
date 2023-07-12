@@ -4,7 +4,6 @@ import time
 import numpy as np
 import nltk
 import pyttsx3
-from playsound import playsound
 from scipy.io import wavfile
 from bark.api import semantic_to_waveform
 from bark.generation import (
@@ -13,6 +12,7 @@ from bark.generation import (
 )
 
 from app.config.tts import TTS
+from app.utils.talk_wav import talk_wav
 
 os.environ["CUDA_VISIBLE_DEVICES"] = TTS["LOCAL"]["CUDA_VISIBLE_DEVICES"]
 os.environ["SUNO_OFFLOAD_CPU"] = TTS["LOCAL"]["OFFLOAD_CPU"]
@@ -48,6 +48,7 @@ class TextToSpeech:
         """Generate an audio file from text using Bark AI."""
         sentences = nltk.sent_tokenize(text)
         for sentence in enumerate(sentences):
+            sentence = sentence[1]
             timestamp = time.strftime("%Y%m%d-%H%M%S")
             semantic_tokens = generate_text_semantic(
                 sentence,
@@ -58,7 +59,9 @@ class TextToSpeech:
 
             audio_array = semantic_to_waveform(semantic_tokens, history_prompt=self._local_speaker,)
             int_audio_array = (audio_array * np.iinfo(np.int16).max).astype(np.int16)
-            file_name = f'ai/{timestamp}.wav'
+            os_path = os.path.dirname(os.path.abspath(__file__)).replace("\\", "/")
+            file_name = f"{timestamp}.wav"
+            file_path = os_path + f'/../../voices/{file_name}'
 
-            wavfile.write(file_name, self._local_sample_rate, int_audio_array)
-            playsound(file_name)
+            wavfile.write(file_path, self._local_sample_rate, int_audio_array)
+            talk_wav(file_name)
