@@ -1,12 +1,14 @@
-import pyaudio
 import time
+from pyaudio import paInt16
+from torch import bfloat16
+from bark import SAMPLE_RATE
 
 IS_DEV = True
 
 RECORDER_DIRECTORY = "./records"
 RECORDER_SHORT_NORMALIZE = 1.0 / 32768.0
 RECORDER_CHUNK = 1024
-RECORDER_FORMAT = pyaudio.paInt16
+RECORDER_FORMAT = paInt16
 RECORDER_CHANNELS = 2
 RECORDER_RATE = 44100
 RECORDER_SWIDTH = 2
@@ -26,12 +28,8 @@ OPENAI_GPT_ENGINE = "gpt-3.5-turbo"
 OPENAI_GPT_MAX_TOKENS = 100
 OPENAI_LANGUAGE = "fr"
 
-TTS_USE_AI = False
-TTS_USE_LOCAL = False if not TTS_USE_AI else not IS_DEV
+TTS_USE_LOCAL = False
 TTS_LANGUAGE = "fr"
-TTS_ELEVEN_LABS_API_KEY = "<your key here>"
-TTS_ELEVEN_LABS_API_URL = "https://api.11-labs.com/v1/generate"
-TTS_ELEVEN_LABS_VOICE = "<your voice here>"
 TTS_BARK_SPEAKER = "v2/fr_speaker_1"
 TTS_BARK_GENERATION_TEMP = 0.6
 TTS_BARK_MIN_EOS_P = 0.05
@@ -42,17 +40,20 @@ TTS_BARK_USE_SMALL_MODELS = "True"
 
 CHATBOT_USE_LOCAL = False
 CHATBOT_MAX_LENGTH = 500
-CHATBOT_LOCAL_MODEL = (
-    "tiiuae/falcon-7b-instruct" if IS_DEV else "tiiuae/falcon-40b-instruct"
-)
-CHATBOT_LOCAL_PIPELINE_TASK = "text-generation"
-CHATBOT_LOCAL_CACHE_DIR = "./models/"
+CHATBOT_FALCON_MODEL = "tiiuae/falcon-7b-instruct" if IS_DEV else "tiiuae/falcon-40b-instruct"
+CHATBOT_FALCON_PIPELINE_TASK = "text-generation"
+CHATBOT_FALCON_CACHE_DIR = "./models/"
+CHATBOT_FALCON_TORCH_DTYPE = bfloat16
+CHATBOT_FALCON_DEVICE_MAP = "cpu"
+CHATBOT_FALCON_OFFLOAD_DIR = "offload"
+CHATBOT_FALCON_TOP_K = 10
+CHATBOT_FALCON_NUM_RETURN_SEQUENCES = 1
+CHATBOT_FALCON_DO_SAMPLE = True
+CHATBOT_FALCON_TRUST_REMOTE_CODE = True
 CHATBOT_SYSTEM_PROMPT = f"""
-<your system prompt here>
 Heure : {time.strftime('%H:%M')}
 Jour : {time.strftime('%A %d %B %Y')}
 """
-
 CHATBOT_GPT_FUNCTIONS = [
     {
         "name": "launch_a_game",

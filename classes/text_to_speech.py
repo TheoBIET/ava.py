@@ -20,26 +20,20 @@ os.environ["SUNO_USE_SMALL_MODELS"] = TTS_BARK_USE_SMALL_MODELS
 class TextToSpeech:
     def __init__(self):
         self._use_local = TTS_USE_LOCAL
-        self._use_ai = TTS_USE_AI
         self._lang = TTS_LANGUAGE
 
-        if self._use_local and self._use_ai:
+        if self._use_local:
             print("🗣️  Loading local Bark AI...")
             preload_models()
             self._bark_speaker = TTS_BARK_SPEAKER
             self._bark_generation_temp = TTS_BARK_GENERATION_TEMP
             self._bark_sample_rate = TTS_BARK_SAMPLE_RATE
             self._bark_min_eos_p = TTS_BARK_MIN_EOS_P
-        elif self._use_ai:
-            print("🗣️  Loading Eleven Labs AI...")
-            self._eleven_labs_api_key = TTS_ELEVEN_LABS_API_KEY
-            self._eleven_labs_api_url = TTS_ELEVEN_LABS_API_URL
-            self._eleven_labs_voice = TTS_ELEVEN_LABS_VOICE
             
         print("🗣️  TTS initialized.")
         
     def speak(self, text):
-        if self._use_local and self._use_ai:
+        if self._use_local:
             self.speak_with_local_ai(text)
         else:
             engine = pyttsx3.init()

@@ -2,6 +2,8 @@
 logs/
 scripts/
 records/
+models/
+offload/
 utils/constants.py
 *.log
 
