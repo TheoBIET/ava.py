@@ -6,6 +6,7 @@ models/
 offload/
 utils/constants.py
 *.log
+voices/*.wav
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
