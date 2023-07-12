@@ -21,10 +21,6 @@ class ChatBotFunctions:
                 'path': r'E:\SteamLibrary\steamapps\common\Trackmania\Trackmania.exe',
                 'alias': ['tm', 'trackmania', 'trackmania2020', 'trackmania 2020']
             },
-            'counter-strike': {
-                'path': r'E:\SteamLibrary\steamapps\common\Counter-Strike Global Offensive\csgo.exe',
-                'alias': ['cs', 'counter strike', 'counter strike global offensive', 'counter-strike: global offensive']
-            }
         }
 
         for game, data in path.items():

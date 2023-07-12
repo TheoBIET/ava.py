@@ -1,5 +1,5 @@
 """Chatbot configuration file."""
-from torch import bfloat16
+from torch import bfloat16          # pylint: disable=no-name-in-module
 from app.utils.get_env import get_env
 
 CHATBOT = {

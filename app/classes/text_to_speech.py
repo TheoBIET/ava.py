@@ -18,6 +18,7 @@ os.environ["CUDA_VISIBLE_DEVICES"] = TTS["LOCAL"]["CUDA_VISIBLE_DEVICES"]
 os.environ["SUNO_OFFLOAD_CPU"] = TTS["LOCAL"]["OFFLOAD_CPU"]
 os.environ["SUNO_USE_SMALL_MODELS"] = TTS["LOCAL"]["USE_SMALL_MODELS"]
 
+
 class TextToSpeech:
     """Class used to speak to the user."""
     def __init__(self):
@@ -58,6 +59,6 @@ class TextToSpeech:
             audio_array = semantic_to_waveform(semantic_tokens, history_prompt=self._local_speaker,)
             int_audio_array = (audio_array * np.iinfo(np.int16).max).astype(np.int16)
             file_name = f'ai/{timestamp}.wav'
-            
+
             wavfile.write(file_name, self._local_sample_rate, int_audio_array)
             playsound(file_name)

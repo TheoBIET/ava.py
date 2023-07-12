@@ -27,7 +27,7 @@ class VoiceRecorder:
     def rms(frame):
         """Returns the root mean square of the frame."""
         count = len(frame) / RECORDER['SWIDTH']
-        sformat = "%dh" % (count)
+        sformat = f'{int(count)}h'
         shorts = struct.unpack(sformat, frame)
         sum_squares = 0.0
         for sample in shorts:

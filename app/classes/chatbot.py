@@ -5,7 +5,7 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 from app.classes.openai_requester import OpenAI
 from app.config.chatbot import CHATBOT
 
-class ChatBot:
+class ChatBot:          # pylint: disable=too-few-public-methods
     """Class used to chat with the user."""
     def __init__(self):
         self._use_local = CHATBOT['USE_LOCAL']

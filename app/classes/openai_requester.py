@@ -8,6 +8,7 @@ from app.config.chatbot import CHATBOT
 from app.classes.chatbot_functions import ChatBotFunctions
 
 @dataclasses.dataclass
+
 class OpenAIConfig:
     """Class used to store the openai configuration."""
     language: str
@@ -42,7 +43,7 @@ class OpenAI:
     def transcribe(self, file):
         """Transcribe an audio file to text using whisper openai api."""
         with open(file, 'rb') as audio_file:
-            response = openai.Audio.transcribe(
+            response = openai.Audio.transcribe(         # pylint: disable=maybe-no-member
                 model=self._config.whisper_engine,
                 language=self._config.language,
                 file=audio_file,
@@ -65,7 +66,7 @@ class OpenAI:
         """Get a chat completion from gpt openai api."""
         self._add(self._config.gpt_roles['user'], content)
 
-        response = openai.ChatCompletion.create(
+        response = openai.ChatCompletion.create(        # pylint: disable=maybe-no-member
             model=self._config.gpt_engine,
             messages=self._config.gpt_conversation,
             max_tokens=max_tokens if max_tokens else self._config.gpt_max_tokens,
